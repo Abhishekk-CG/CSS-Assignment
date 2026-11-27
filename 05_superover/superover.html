@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Over</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      background-color: #08101a;
+      background-image: url('stadium-bg.svg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px 28px 24px;
+      user-select: none;
+    }
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-top: 6px;
+    }
+    .logo {
+      height: 48px;
+      object-fit: contain;
+    }
+    .game-arena {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 72px;
+      width: 100%;
+      max-width: 820px;
+      margin: auto 0;
+    }
+    .team-card {
+      width: 336px;
+      height: 270px;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 20px 22px 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .card-ind {
+      background-color: #1b61c1;
+    }
+    .card-pak {
+      background-color: #40a53b;
+    }
+    .team-name {
+      font-size: 54px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    .deliveries-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      width: 100%;
+    }
+    .ball-badge {
+      width: 38px;
+      height: 38px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111111;
+      font-size: 21px;
+      font-weight: 800;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+    .score-display {
+      font-size: 40px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      padding-bottom: 4px;
+    }
+    .btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      border: 3.5px solid rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+      transition: transform 0.15s ease, filter 0.15s ease;
+      background: none;
+      outline: none;
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.08);
+    }
+    .btn:active {
+      transform: translateY(1px) scale(0.97);
+    }
+    .btn-bat {
+      background-color: #f6b844;
+    }
+    .btn-reset {
+      background-color: #d8373b;
+    }
+    .btn img {
+      width: 38px;
+      height: 38px;
+      pointer-events: none;
+    }
+    @media (max-width: 768px) {
+      .game-arena {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .team-card {
+        width: 300px;
+        height: 230px;
+        padding: 16px 14px;
+      }
+      .team-name {
+        font-size: 44px;
+      }
+      .score-display {
+        font-size: 34px;
+      }
+      .ball-badge {
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <img src="logo.svg" alt="SUPER OVER" class="logo">
+  </header>
+
+  <main class="game-arena">
+    <div class="team-card card-ind">
+      <h2 class="team-name">IND</h2>
+      <div class="deliveries-row">
+        <span class="ball-badge">4</span>
+        <span class="ball-badge">3</span>
+        <span class="ball-badge">2</span>
+        <span class="ball-badge">6</span>
+        <span class="ball-badge">6</span>
+        <span class="ball-badge">6</span>
+      </div>
+      <div class="score-display">27 / 0</div>
+    </div>
+
+    <div class="team-card card-pak">
+      <h2 class="team-name">PAK</h2>
+      <div class="deliveries-row">
+        <span class="ball-badge">2</span>
+        <span class="ball-badge">4</span>
+        <span class="ball-badge">0</span>
+        <span class="ball-badge">3</span>
+        <span class="ball-badge">1</span>
+        <span class="ball-badge">4</span>
+      </div>
+      <div class="score-display">14 / 0</div>
+    </div>
+  </main>
+
+  <footer class="controls">
+    <button class="btn btn-bat" aria-label="Bat">
+      <img src="bat.svg" alt="Bat">
+    </button>
+    <button class="btn btn-reset" aria-label="Reset">
+      <img src="reset.svg" alt="Reset">
+    </button>
+  </footer>
+</body>
+</html>

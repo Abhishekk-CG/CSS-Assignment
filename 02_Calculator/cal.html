@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #1c1c1c;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .display {
+            width: 100%;
+            padding: 0 16px 20px;
+            font-size: 88px;
+            font-weight: 300;
+            line-height: 1;
+            text-align: right;
+            color: #ffffff;
+            word-wrap: break-word;
+            word-break: break-all;
+            letter-spacing: -1px;
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .btn {
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            font-size: 34px;
+            font-weight: 400;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: filter 0.15s, transform 0.1s;
+        }
+
+        .btn:hover {
+            filter: brightness(1.2);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+        }
+
+        .btn-fn {
+            background-color: #a2a2a2;
+            color: #000000;
+            font-size: 30px;
+        }
+
+        .btn-num {
+            background-color: #505050;
+            color: #ffffff;
+        }
+
+        .btn-op {
+            background-color: #ff9500;
+            color: #ffffff;
+            font-size: 38px;
+        }
+
+        .btn-zero {
+            grid-column: span 2;
+            aspect-ratio: auto;
+            height: 100%;
+            border-radius: 46px;
+            justify-content: flex-start;
+            padding-left: 34px;
+        }
+
+        @media (max-width: 480px) {
+            .display {
+                font-size: 72px;
+            }
+
+            .btn {
+                font-size: 28px;
+            }
+
+            .btn-op {
+                font-size: 32px;
+            }
+
+            .btn-fn {
+                font-size: 26px;
+            }
+
+            .btn-zero {
+                padding-left: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">7744</div>
+        <div class="keypad">
+            <button class="btn btn-fn">C</button>
+            <button class="btn btn-fn">+/-</button>
+            <button class="btn btn-fn">%</button>
+            <button class="btn btn-op">&divide;</button>
+
+            <button class="btn btn-num">7</button>
+            <button class="btn btn-num">8</button>
+            <button class="btn btn-num">9</button>
+            <button class="btn btn-op">x</button>
+
+            <button class="btn btn-num">4</button>
+            <button class="btn btn-num">5</button>
+            <button class="btn btn-num">6</button>
+            <button class="btn btn-op">-</button>
+
+            <button class="btn btn-num">1</button>
+            <button class="btn btn-num">2</button>
+            <button class="btn btn-num">3</button>
+            <button class="btn btn-op">+</button>
+
+            <button class="btn btn-num btn-zero">0</button>
+            <button class="btn btn-num">,</button>
+            <button class="btn btn-op">=</button>
+        </div>
+    </div>
+</body>
+</html>

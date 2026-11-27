@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #141414;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 68px;
+            padding: 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
+            z-index: 100;
+            transition: background-color 0.4s;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .netflix-logo {
+            height: 25px;
+            width: auto;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            color: #e5e5e5;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #b3b3b3;
+        }
+
+        .nav-link.active {
+            font-weight: 700;
+            color: #ffffff;
+            cursor: default;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            cursor: pointer;
+            filter: brightness(0) invert(1);
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .profile-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .profile-caret {
+            width: 10px;
+            height: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .hero-banner {
+            position: relative;
+            height: 800px;
+            background: url('Title-Image.png') no-repeat center top / cover;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(20, 20, 20, 0.8) 0%, rgba(20, 20, 20, 0.3) 40%, transparent 70%),
+                        linear-gradient(to top, #141414 0%, rgba(20, 20, 20, 0.8) 18%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 60px;
+            max-width: 650px;
+            margin-top: 60px;
+        }
+
+        .series-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .series-n-logo {
+            height: 26px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .series-text {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 4px;
+        }
+
+        .hero-title {
+            font-size: 88px;
+            font-weight: 900;
+            line-height: 1;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, opacity 0.2s;
+        }
+
+        .btn-play {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .btn-play:hover {
+            background-color: rgba(255, 255, 255, 0.75);
+        }
+
+        .btn-play img {
+            width: 14px;
+            height: 14px;
+            object-fit: contain;
+        }
+
+        .btn-info {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: #ffffff;
+        }
+
+        .btn-info:hover {
+            background-color: rgba(109, 109, 110, 0.4);
+        }
+
+        .btn-info img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .hero-add-btn {
+            position: absolute;
+            right: 60px;
+            bottom: 240px;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background: rgba(42, 42, 42, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .hero-add-btn:hover {
+            border-color: #ffffff;
+        }
+
+        .hero-add-btn img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .content-area {
+            position: relative;
+            z-index: 20;
+            margin-top: -140px;
+            padding-bottom: 60px;
+        }
+
+        .movie-row {
+            margin-bottom: 44px;
+            padding: 0 60px;
+        }
+
+        .row-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .row-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e5e5e5;
+            transition: color 0.2s;
+        }
+
+        .row-header:hover .row-title {
+            color: #ffffff;
+        }
+
+        .row-chevron {
+            font-size: 14px;
+            color: #54b9c5;
+            font-weight: 700;
+            opacity: 0.8;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .row-header:hover .row-chevron {
+            transform: translateX(4px);
+            opacity: 1;
+        }
+
+        .row-cards {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 10px 0;
+        }
+
+        .row-cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .movie-card {
+            flex: 0 0 calc(20% - 7px);
+            min-width: 220px;
+            aspect-ratio: 16 / 9;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.06);
+            z-index: 10;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .top10-row {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .top10-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .top10-card {
+            display: flex;
+            align-items: center;
+            flex: 0 0 calc(20% - 10px);
+            min-width: 210px;
+            height: 185px;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .top10-card:hover {
+            transform: scale(1.06);
+            z-index: 10;
+        }
+
+        .top10-rank {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+            user-select: none;
+        }
+
+        .top10-poster {
+            height: 100%;
+            width: 130px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-left: -32px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .footer {
+            max-width: 980px;
+            margin: 40px auto 0;
+            padding: 0 40px 50px;
+            color: #808080;
+            font-size: 13px;
+        }
+
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            cursor: pointer;
+        }
+
+        .footer-links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-link {
+            color: #808080;
+            font-size: 13px;
+            line-height: 1.4;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .service-code-btn {
+            background-color: transparent;
+            border: 1px solid #808080;
+            color: #808080;
+            padding: 6px 10px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .service-code-btn:hover {
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .copyright-text {
+            font-size: 11px;
+            color: #808080;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-left">
+            <img src="NetflixLogoSvg.png" alt="Netflix" class="netflix-logo">
+            <ul class="nav-links">
+                <li class="nav-link active">Start</li>
+                <li class="nav-link">Shows</li>
+                <li class="nav-link">Movies</li>
+                <li class="nav-link">New</li>
+                <li class="nav-link">My List</li>
+            </ul>
+        </div>
+
+        <div class="nav-right">
+            <img src="Search (1).png" alt="Search" class="nav-icon">
+            <img src="GiftBox.png" alt="Gift" class="nav-icon">
+            <img src="NotificationBell.png" alt="Notifications" class="nav-icon">
+            <div class="profile-container">
+                <img src="ProfileIMG.png" alt="Profile" class="profile-avatar">
+                <img src="DownArrow.png" alt="" class="profile-caret">
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-banner">
+        <div class="hero-vignette"></div>
+
+        <div class="hero-content">
+            <div class="series-badge">
+                <img src="Netflix_Symbol_RGB 1.png" alt="N" class="series-n-logo">
+                <span class="series-text">SHOW</span>
+            </div>
+            <h1 class="hero-title">MAID</h1>
+            <div class="hero-buttons">
+                <button class="btn btn-play">
+                    <img src="Play.png" alt="">
+                    <span>Play</span>
+                </button>
+                <button class="btn btn-info">
+                    <img src="Detail.png" alt="">
+                    <span>More info</span>
+                </button>
+            </div>
+        </div>
+
+        <button class="hero-add-btn" aria-label="Add to My List">
+            <img src="Add.png" alt="Add">
+        </button>
+    </div>
+
+    <main class="content-area">
+        <section class="movie-row">
+            <div class="row-header">
+                <h2 class="row-title">See again</h2>
+                <span class="row-chevron">&gt;</span>
+            </div>
+            <div class="row-cards">
+                <div class="movie-card">
+                    <img src="section 1.1.png" alt="YOU">
+                </div>
+                <div class="movie-card">
+                    <img src="section 1.2.png" alt="Snowpiercer">
+                </div>
+                <div class="movie-card">
+                    <img src="section 1.3.png" alt="The Universe">
+                </div>
+                <div class="movie-card">
+                    <img src="section 1.4.png" alt="The Last Kingdom">
+                </div>
+                <div class="movie-card">
+                    <img src="section 1.5.png" alt="Money Heist">
+                </div>
+            </div>
+        </section>
+
+        <section class="movie-row">
+            <div class="row-header">
+                <h2 class="row-title">Top 10 in your country</h2>
+                <span class="row-chevron">&gt;</span>
+            </div>
+            <div class="top10-row">
+                <div class="top10-card">
+                    <img src="Rank - 01.png" alt="1" class="top10-rank">
+                    <img src="section 2.1.png" alt="Red Notice" class="top10-poster">
+                </div>
+                <div class="top10-card">
+                    <img src="Rank - 02.png" alt="2" class="top10-rank">
+                    <img src="section 2.2.png" alt="Jason Bourne" class="top10-poster">
+                </div>
+                <div class="top10-card">
+                    <img src="Rank - 03.png" alt="3" class="top10-rank">
+                    <img src="section 2.3.png" alt="Squid Game" class="top10-poster">
+                </div>
+                <div class="top10-card">
+                    <img src="Rank - 04.png" alt="4" class="top10-rank">
+                    <img src="section 2.4.png" alt="Central Intelligence" class="top10-poster">
+                </div>
+                <div class="top10-card">
+                    <img src="Rank - 05.png" alt="5" class="top10-rank">
+                    <img src="section 2.5.png" alt="Hellbound" class="top10-poster">
+                </div>
+            </div>
+        </section>
+
+        <section class="movie-row">
+            <div class="row-header">
+                <h2 class="row-title">Trending now</h2>
+                <span class="row-chevron">&gt;</span>
+            </div>
+            <div class="row-cards">
+                <div class="movie-card">
+                    <img src="section 3.1.png" alt="Explained">
+                </div>
+                <div class="movie-card">
+                    <img src="section 3.2.png" alt="Into The Night">
+                </div>
+                <div class="movie-card">
+                    <img src="section 3.3.png" alt="Locke & Key">
+                </div>
+                <div class="movie-card">
+                    <img src="section 3.4.png" alt="The Queen's Gambit">
+                </div>
+                <div class="movie-card">
+                    <img src="section 3.5.png" alt="The Crown">
+                </div>
+            </div>
+        </section>
+
+        <section class="movie-row">
+            <div class="row-header">
+                <h2 class="row-title">Sci-fi shows</h2>
+                <span class="row-chevron">&gt;</span>
+            </div>
+            <div class="row-cards">
+                <div class="movie-card">
+                    <img src="section 4.1.png" alt="Altered Carbon">
+                </div>
+                <div class="movie-card">
+                    <img src="section 4.2.png" alt="Another Life">
+                </div>
+                <div class="movie-card">
+                    <img src="section 4.3.png" alt="The Umbrella Academy">
+                </div>
+                <div class="movie-card">
+                    <img src="section 4.4.png" alt="Sense8">
+                </div>
+                <div class="movie-card">
+                    <img src="section 4.5.png" alt="The Rain">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="social-links">
+            <img src="facebook.png" alt="Facebook" class="social-icon">
+            <img src="instagram.png" alt="Instagram" class="social-icon">
+            <img src="twitter.png" alt="Twitter" class="social-icon">
+            <img src="youtube.png" alt="YouTube" class="social-icon">
+        </div>
+
+        <div class="footer-links-grid">
+            <a href="#" class="footer-link">Seslendirme ve Alt Yazı</a>
+            <a href="#" class="footer-link">Sesli Betimleme</a>
+            <a href="#" class="footer-link">Yardım Merkezi</a>
+            <a href="#" class="footer-link">Hediye Kartları</a>
+
+            <a href="#" class="footer-link">Medya Merkezi</a>
+            <a href="#" class="footer-link">Yatırımcı İlişkileri</a>
+            <a href="#" class="footer-link">İş İmkanları</a>
+            <a href="#" class="footer-link">Kullanım Koşulları</a>
+
+            <a href="#" class="footer-link">Gizlilik</a>
+            <a href="#" class="footer-link">Yasal Hükümler</a>
+            <a href="#" class="footer-link">Çerez Tercihleri</a>
+            <a href="#" class="footer-link">Kurumsal Bilgiler</a>
+
+            <a href="#" class="footer-link">Bize Ulaşın</a>
+        </div>
+
+        <button class="service-code-btn">Hizmet Kodu</button>
+
+        <div class="copyright-text">
+            © 1997-2021 Netflix, Inc. {i-082cb73e0ee092242}
+        </div>
+    </footer>
+</body>
+</html>

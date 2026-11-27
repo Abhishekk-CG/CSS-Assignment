@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ludo Board</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 10px;
+    }
+    .board-container {
+      width: min(94vw, 94vh, 600px);
+      height: min(94vw, 94vh, 600px);
+      border: 2px solid #ff0000;
+      background-color: #000000;
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      grid-template-rows: repeat(15, 1fr);
+      gap: 1px;
+    }
+    .base {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .base-red {
+      grid-row: 1 / 7;
+      grid-column: 1 / 7;
+      background-color: #ff0000;
+    }
+    .base-green {
+      grid-row: 1 / 7;
+      grid-column: 10 / 16;
+      background-color: #008000;
+    }
+    .base-blue {
+      grid-row: 10 / 16;
+      grid-column: 1 / 7;
+      background-color: #0000ff;
+    }
+    .base-yellow {
+      grid-row: 10 / 16;
+      grid-column: 10 / 16;
+      background-color: #ffff00;
+    }
+    .base-inner {
+      width: 68%;
+      height: 68%;
+      background-color: #ffffff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      place-items: center;
+      padding: 8%;
+    }
+    .token-circle {
+      width: 72%;
+      height: 72%;
+      border-radius: 50%;
+      background-color: #ffffff;
+    }
+    .circle-red {
+      border: 4px solid #ff0000;
+    }
+    .circle-green {
+      border: 4px solid #008000;
+    }
+    .circle-blue {
+      border: 4px solid #0000ff;
+    }
+    .circle-yellow {
+      border: 4px solid #ffff00;
+    }
+    .center-home {
+      grid-row: 7 / 10;
+      grid-column: 7 / 10;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+    .triangle-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #008000;
+      clip-path: polygon(0 0, 100% 0, 50% 50%);
+    }
+    .triangle-right {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffff00;
+      clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+    }
+    .triangle-bottom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0000ff;
+      clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+    }
+    .triangle-left {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ff0000;
+      clip-path: polygon(0 0, 0 100%, 50% 50%);
+    }
+    .cell {
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(14px, 3.5vw, 24px);
+      line-height: 1;
+      user-select: none;
+    }
+    .cell-red {
+      background-color: #ff0000;
+    }
+    .cell-green {
+      background-color: #008000;
+    }
+    .cell-blue {
+      background-color: #0000ff;
+    }
+    .cell-yellow {
+      background-color: #ffff00;
+    }
+    .star {
+      color: #000000;
+      font-weight: 900;
+      display: inline-block;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="board-container">
+    <div class="base base-red">
+      <div class="base-inner">
+        <div class="token-circle circle-red"></div>
+        <div class="token-circle circle-red"></div>
+        <div class="token-circle circle-red"></div>
+        <div class="token-circle circle-red"></div>
+      </div>
+    </div>
+
+    <div class="base base-green">
+      <div class="base-inner">
+        <div class="token-circle circle-green"></div>
+        <div class="token-circle circle-green"></div>
+        <div class="token-circle circle-green"></div>
+        <div class="token-circle circle-green"></div>
+      </div>
+    </div>
+
+    <div class="base base-blue">
+      <div class="base-inner">
+        <div class="token-circle circle-blue"></div>
+        <div class="token-circle circle-blue"></div>
+        <div class="token-circle circle-blue"></div>
+        <div class="token-circle circle-blue"></div>
+      </div>
+    </div>
+
+    <div class="base base-yellow">
+      <div class="base-inner">
+        <div class="token-circle circle-yellow"></div>
+        <div class="token-circle circle-yellow"></div>
+        <div class="token-circle circle-yellow"></div>
+        <div class="token-circle circle-yellow"></div>
+      </div>
+    </div>
+
+    <div class="center-home">
+      <div class="triangle-top"></div>
+      <div class="triangle-right"></div>
+      <div class="triangle-bottom"></div>
+      <div class="triangle-left"></div>
+    </div>
+
+    <div class="cell" style="grid-row:1;grid-column:7"></div>
+    <div class="cell" style="grid-row:1;grid-column:8"></div>
+    <div class="cell" style="grid-row:1;grid-column:9"></div>
+    <div class="cell" style="grid-row:2;grid-column:7"></div>
+    <div class="cell cell-green" style="grid-row:2;grid-column:8"></div>
+    <div class="cell cell-green" style="grid-row:2;grid-column:9"><span class="star">&#9733;</span></div>
+    <div class="cell cell-green" style="grid-row:3;grid-column:7"><span class="star">&#9733;</span></div>
+    <div class="cell cell-green" style="grid-row:3;grid-column:8"></div>
+    <div class="cell" style="grid-row:3;grid-column:9"></div>
+    <div class="cell" style="grid-row:4;grid-column:7"></div>
+    <div class="cell cell-green" style="grid-row:4;grid-column:8"></div>
+    <div class="cell" style="grid-row:4;grid-column:9"></div>
+    <div class="cell" style="grid-row:5;grid-column:7"></div>
+    <div class="cell cell-green" style="grid-row:5;grid-column:8"></div>
+    <div class="cell" style="grid-row:5;grid-column:9"></div>
+    <div class="cell" style="grid-row:6;grid-column:7"></div>
+    <div class="cell cell-green" style="grid-row:6;grid-column:8"></div>
+    <div class="cell" style="grid-row:6;grid-column:9"></div>
+
+    <div class="cell" style="grid-row:7;grid-column:1"></div>
+    <div class="cell cell-red" style="grid-row:7;grid-column:2"><span class="star">&#9733;</span></div>
+    <div class="cell" style="grid-row:7;grid-column:3"></div>
+    <div class="cell" style="grid-row:7;grid-column:4"></div>
+    <div class="cell" style="grid-row:7;grid-column:5"></div>
+    <div class="cell" style="grid-row:7;grid-column:6"></div>
+    <div class="cell" style="grid-row:8;grid-column:1"></div>
+    <div class="cell cell-red" style="grid-row:8;grid-column:2"></div>
+    <div class="cell cell-red" style="grid-row:8;grid-column:3"></div>
+    <div class="cell cell-red" style="grid-row:8;grid-column:4"></div>
+    <div class="cell cell-red" style="grid-row:8;grid-column:5"></div>
+    <div class="cell cell-red" style="grid-row:8;grid-column:6"></div>
+    <div class="cell" style="grid-row:9;grid-column:1"></div>
+    <div class="cell" style="grid-row:9;grid-column:2"></div>
+    <div class="cell cell-red" style="grid-row:9;grid-column:3"><span class="star">&#9733;</span></div>
+    <div class="cell" style="grid-row:9;grid-column:4"></div>
+    <div class="cell" style="grid-row:9;grid-column:5"></div>
+    <div class="cell" style="grid-row:9;grid-column:6"></div>
+
+    <div class="cell" style="grid-row:7;grid-column:10"></div>
+    <div class="cell" style="grid-row:7;grid-column:11"></div>
+    <div class="cell" style="grid-row:7;grid-column:12"></div>
+    <div class="cell cell-yellow" style="grid-row:7;grid-column:13"><span class="star">&#9733;</span></div>
+    <div class="cell" style="grid-row:7;grid-column:14"></div>
+    <div class="cell" style="grid-row:7;grid-column:15"></div>
+    <div class="cell cell-yellow" style="grid-row:8;grid-column:10"></div>
+    <div class="cell cell-yellow" style="grid-row:8;grid-column:11"></div>
+    <div class="cell cell-yellow" style="grid-row:8;grid-column:12"></div>
+    <div class="cell cell-yellow" style="grid-row:8;grid-column:13"></div>
+    <div class="cell cell-yellow" style="grid-row:8;grid-column:14"></div>
+    <div class="cell" style="grid-row:8;grid-column:15"></div>
+    <div class="cell" style="grid-row:9;grid-column:10"></div>
+    <div class="cell" style="grid-row:9;grid-column:11"></div>
+    <div class="cell" style="grid-row:9;grid-column:12"></div>
+    <div class="cell" style="grid-row:9;grid-column:13"></div>
+    <div class="cell cell-yellow" style="grid-row:9;grid-column:14"><span class="star">&#9733;</span></div>
+    <div class="cell" style="grid-row:9;grid-column:15"></div>
+
+    <div class="cell" style="grid-row:10;grid-column:7"></div>
+    <div class="cell cell-blue" style="grid-row:10;grid-column:8"></div>
+    <div class="cell" style="grid-row:10;grid-column:9"></div>
+    <div class="cell" style="grid-row:11;grid-column:7"></div>
+    <div class="cell cell-blue" style="grid-row:11;grid-column:8"></div>
+    <div class="cell" style="grid-row:11;grid-column:9"></div>
+    <div class="cell" style="grid-row:12;grid-column:7"></div>
+    <div class="cell cell-blue" style="grid-row:12;grid-column:8"></div>
+    <div class="cell" style="grid-row:12;grid-column:9"></div>
+    <div class="cell" style="grid-row:13;grid-column:7"></div>
+    <div class="cell cell-blue" style="grid-row:13;grid-column:8"></div>
+    <div class="cell cell-blue" style="grid-row:13;grid-column:9"><span class="star">&#9733;</span></div>
+    <div class="cell cell-blue" style="grid-row:14;grid-column:7"><span class="star">&#9733;</span></div>
+    <div class="cell cell-blue" style="grid-row:14;grid-column:8"></div>
+    <div class="cell" style="grid-row:14;grid-column:9"></div>
+    <div class="cell" style="grid-row:15;grid-column:7"></div>
+    <div class="cell" style="grid-row:15;grid-column:8"></div>
+    <div class="cell" style="grid-row:15;grid-column:9"></div>
+  </div>
+</body>
+</html>

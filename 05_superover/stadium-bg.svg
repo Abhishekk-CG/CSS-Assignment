@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 546" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#08101a"/>
+      <stop offset="60%" stop-color="#122336"/>
+      <stop offset="100%" stop-color="#172b40"/>
+    </linearGradient>
+    <linearGradient id="grassGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b4a20"/>
+      <stop offset="40%" stop-color="#153e19"/>
+      <stop offset="100%" stop-color="#0d2610"/>
+    </linearGradient>
+    <radialGradient id="lightLeft" cx="15%" cy="15%" r="40%">
+      <stop offset="0%" stop-color="rgba(100, 150, 200, 0.15)"/>
+      <stop offset="100%" stop-color="rgba(100, 150, 200, 0)"/>
+    </radialGradient>
+    <radialGradient id="lightRight" cx="85%" cy="15%" r="40%">
+      <stop offset="0%" stop-color="rgba(100, 150, 200, 0.15)"/>
+      <stop offset="100%" stop-color="rgba(100, 150, 200, 0)"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="370" fill="url(#skyGrad)"/>
+  <rect width="1024" height="370" fill="url(#lightLeft)"/>
+  <rect width="1024" height="370" fill="url(#lightRight)"/>
+
+  <path d="M0 190 L1024 190 L1024 370 L0 370 Z" fill="#131e2b"/>
+  <path d="M0 240 L1024 240 L1024 370 L0 370 Z" fill="#152332"/>
+  <path d="M0 290 L1024 290 L1024 370 L0 370 Z" fill="#182737"/>
+  <path d="M0 340 L1024 340 L1024 370 L0 370 Z" fill="#1b2c3d"/>
+
+  <line x1="0" y1="190" x2="1024" y2="190" stroke="#0e1722" stroke-width="2"/>
+  <line x1="0" y1="240" x2="1024" y2="240" stroke="#101b26" stroke-width="2"/>
+  <line x1="0" y1="290" x2="1024" y2="290" stroke="#121e2a" stroke-width="2"/>
+  <line x1="0" y1="340" x2="1024" y2="340" stroke="#14212e" stroke-width="2"/>
+
+  <line x1="200" y1="190" x2="160" y2="370" stroke="#111c26" stroke-width="2"/>
+  <line x1="512" y1="190" x2="512" y2="370" stroke="#111c26" stroke-width="2"/>
+  <line x1="824" y1="190" x2="864" y2="370" stroke="#111c26" stroke-width="2"/>
+
+  <path d="M0 365 Q 512 355 1024 365 L1024 546 L0 546 Z" fill="url(#grassGrad)"/>
+</svg>
